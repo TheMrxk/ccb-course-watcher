@@ -16,7 +16,7 @@
 ## 📦 安装
 
 ```bash
-npx skills add https://github.com/your-name/ccb-course-watcher --skill ccb-course-watcher
+npx skills add https://github.com/TheMrxk/ccb-course-watcher --skill ccb-course-watcher
 ```
 
 ## 🔐 配置
