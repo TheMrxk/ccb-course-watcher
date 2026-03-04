@@ -1,303 +1,137 @@
-# 建行学习平台课程自动观看工具 (ccb-course-watcher)
+# 建行学习课程观看工具 (ccb-course-watcher)
 
-一个用于批量完成建行学习平台培训课程学习的自动化工具。
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Agent Skills](https://img.shields.io/badge/agent--skills-green.svg)](https://agentskills.io)
 
-**特点**：
-- 🚀 2倍速加速观看，节省时间
-- 🔒 账号密码绝对保密，使用环境变量
-- 📦 自动处理课程包中所有视频
-- ✨ 无需手动操作
+建行学习平台课程自动观看工具（2倍速），帮助你批量完成培训课程的学习任务。
 
----
+## ✨ 特点
 
-## 📋 目录
+- 🚀 **2倍速加速** - 大幅节省学习时间
+- 🔒 **账号安全** - 账号密码仅使用环境变量，不保存到文件
+- 📦 **自动化** - 自动登录、自动观看、自动切换下一个视频
+- 📊 **批量处理** - 支持课程包批量观看
+- 🎯 **简单易用** - 一条命令即可使用
 
-- [安装说明](#安装说明)
-- [账号密码配置](#账号密码配置)
-- [使用方法](#使用方法)
-- [更新密码](#更新密码)
-- [常见问题](#常见问题)
-- [安全说明](#安全说明)
-
----
-
-## 📦 安装说明
-
-### 前置要求
-
-- Node.js (已安装)
-- npm (已安装)
-- 建行学习平台账号
-
-### 安装步骤
-
-**第一步：安装 agent-browser**
+## 📦 安装
 
 ```bash
-npm install -g agent-browser
+npx skills add https://github.com/your-name/ccb-course-watcher --skill ccb-course-watcher
 ```
 
-**第二步：安装 Chromium 浏览器**
+## 🔐 配置
 
-```bash
-agent-browser install
-```
-
-这会下载 Chromium 浏览器（约300MB），仅第一次需要。
-
-**第三步：复制 skill 到系统**
-
-skill文件已安装在：
-```
-~/.agents/skills/ccb-course-watcher/
-```
-
-对于 OpenClaw / Claude 用户，此skill已自动关联，无需额外配置。
-
----
-
-## 🔐 账号密码配置
-
-### 首次配置（必须）
-
-在使用本工具前，**必须**设置环境变量：
+### 首次配置
 
 ```bash
 export CCB_USERNAME="your_username"
 export CCB_PASSWORD="your_password"
 ```
 
-**示例：**
-```bash
-export CCB_USERNAME="zhangsan.ln"
-export CCB_PASSWORD="Password123"
-```
-
-### 验证配置
+### 更新密码
 
 ```bash
-# 检查环境变量是否设置成功
-echo "用户名: $CCB_USERNAME"
-echo "密码: $CCB_PASSWORD"
+export CCB_PASSWORD="NewPassword"
 ```
 
-应该显示你设置的账号和密码。
+**重要**: 账号密码仅使用环境变量，不会保存到任何文件。关闭终端后自动清除。
 
-### 重置配置
+## 🚀 使用
 
-如果设置错误或想重新配置，只需重新运行：
+### 观看课程包（推荐）
 
-```bash
-export CCB_USERNAME="new_username"
-export CCB_PASSWORD="new_password"
+```
+"帮我看完这个课程包：https://u.ccb.com/workshop/#/myworkshop/detail?id=xxx"
 ```
 
----
+### 观看单个视频
 
-## 🔄 更新密码
-
-### 建行平台密码变更后
-
-如果建行学习平台的密码变更，按以下步骤更新：
-
-```bash
-# 更新密码环境变量
-export CCB_PASSWORD="NewPassword123"
-
-# 验证
-echo $CCB_PASSWORD
-
-# 确认无误后即可使用
+```
+"帮我看完这个视频：https://u.ccb.com/course/#/play/xxx"
 ```
 
-### 终端关闭后清除环境变量
+### 查看进度
 
-关闭终端后，环境变量会自动清除。下次使用时需要重新设置：
-
-```bash
-# 每次打开新终端后，重新设置
-export CCB_USERNAME="your_username"
-export CCB_PASSWORD="your_password"
+```
+"看了几个了？"
 ```
 
----
+## 📋 前置要求
 
-## 🚀 使用方法
+- Node.js
+- npm
 
-### 场景1：观看课程包（推荐）
+### 安装依赖
 
-**步骤1：配置账号密码**
-```bash
-export CCB_USERNAME="your_username"
-export CCB_PASSWORD="your_password"
-```
-
-**步骤2：告诉Claude**
-```
-“帮我看完这个课程包：https://u.ccb.com/workshop/#/myworkshop/detail?id=xxx”
-```
-
-工具会自动：
-1. 登录建行学习平台
-2. 打开课程包
-3. 找到所有未完成的视频
-4. 逐个2倍速观看
-5. 完成后汇报
-
----
-
-### 场景2：观看单个视频
-
-**步骤1：配置账号密码**
-```bash
-export CCB_USERNAME="your_username"
-export CCB_PASSWORD="your_password"
-```
-
-**步骤2：告诉Claude**
-```
-“帮我看完这个视频：https://u.ccb.com/course/#/play/xxx”
-```
-
----
-
-## 📝 完整示例
-
-### 示例：批量观看培训课程
-
-```bash
-# 1. 打开终端
-# 2. 设置环境变量
-export CCB_USERNAME="zhangsan.ln"
-export CCB_PASSWORD="Password123"
-
-# 3. 验证配置
-echo $CCB_USERNAME
-echo $CCB_PASSWORD
-
-# 4. 告诉Claude
-“帮我看完这个课程包：https://u.ccb.com/workshop/#/myworkshop/detail?id=5ad2de09-232d-4793-b632-ebd72f4b264f”
-
-# 5. Claude会自动执行，完成后汇报
-# ✅ 任务完成！共观看 11 个视频
-```
-
----
-
-## ❓ 常见问题
-
-### Q1: 提示环境变量未设置怎么办？
-
-**A:** 重新设置环境变量：
-```bash
-export CCB_USERNAME="your_username"
-export CCB_PASSWORD="your_password"
-```
-
-### Q2: 忘记设置环境变量会怎样？
-
-**A:** 始终不会保存你的密码到任何文件，只会提示你设置环境变量。
-
-### Q3: 密码会不会被记录？
-
-**A:** 不会。账号密码仅从环境变量读取，使用后立刻从内存清除。不会保存到任何文件。
-
-### Q4: 关闭终端后还需要重新设置吗？
-
-**A:** 是的。关闭终端后，环境变量会自动清除。每次打开新终端都需要重新设置。
-
-### Q5: agent-browser 未安装怎么办？
-
-**A:** 运行以下命令安装：
 ```bash
 npm install -g agent-browser
 agent-browser install
 ```
 
----
+或者运行安装脚本：
+```bash
+npx ccb-course-watcher-install
+```
+
+## 📖 详细文档
+
+详细使用说明请查看 skill 内的 `README.md`。
 
 ## 🔒 安全说明
 
-### 账号密码保护
+| 安全特性 | 状态 |
+|---------|------|
+| 账号密码不写配置文件 | ✅ |
+| 仅使用环境变量 | ✅ |
+| 终端关闭后自动清除 | ✅ |
+| 不保存到任何文件 | ✅ |
+| 仅访问建行学习平台 | ✅ |
 
-- ✅ **不保存到文件**：账号密码仅使用环境变量
-- ✅ **终端关闭后清除**：关闭终端自动清除内存
-- ✅ **仅用于建行学习平台**：不会用于其他任何网站
-- ✅ **不发送到网络**：仅本地使用
+## ⚙️ 技术实现
 
-### 环境变量 vs 配置文件
+- **浏览器自动化**: agent-browser
+- **播放速度**: 2倍速 (video.playbackRate = 2.0)
+- **自动化流程**: 两步点击（课程包 → 详情 → 视频）
 
-**为什么不用配置文件？**
+## 📝 使用示例
 
-| 方式 | 安全性 | 说明 |
-|------|--------|------|
-| 环境变量 | ✅ 高 | 关闭终端后自动清除 |
-| .env文件 | ❌ 低 | 可能被版本控制 |
-| ~/.config/** ❌ 低 | 明文存储不安全 |
-| 硬编码在skill ❌ 极低 | 代码泄露 |
+### 示例1：批量观看培训课程
 
-### 密码泄露风险评估
+```bash
+# 1. 配置账号（每次使用前）
+export CCB_USERNAME="zhangsan.ln"
+export CCB_PASSWORD="Password123"
 
-- ✅ **内存中使用**：仅在使用期间
-- ✅ **进程终止清除**：进程结束自动释放
-- ✅ **终端关闭清除**：关闭终端自动清除
-- ✅ **不写入磁盘**：没有文件操作
+# 2. 使用 skill
+“帮我看完这个课程包：https://u.ccb.com/workshop/#/myworkshop/detail?id=xxx”
 
----
-
-## 📂 文件结构
-
-```
-ccb-course-watcher/
-├── SKILL.md      # skill主文件
-└── README.md     # 这个说明文档
+# 3. 等待完成（自动2倍速观看所有视频）
+# ✅ 任务完成！共观看 11 个视频
 ```
 
----
+### 示例2：观看单个视频
 
-## 🎯 技术细节
+```bash
+export CCB_USERNAME="zhangsan.ln"
+export CCB_PASSWORD="Password123"
 
-### 浏览器自动化
+“帮我看完这个视频：https://u.ccb.com/course/#/play/xxx”
+```
 
-使用 `agent-browser` 工具：
-- 版本：v0.16.1 或更高
-- 浏览器：Chromium（开源）
-- 功能：点击、填写表单、设置播放速度
+## 🤝 贡献
 
-### 两步点击流程
+欢迎提交 Issue 和 Pull Request！
 
-建行学习平台视频需要两步点击：
+## 📄 License
 
-1. **课程包列表**
-   - 找到"立即学习"/"继续学习"按钮
-   - 点击进入课程详情页
+MIT License - 详见 [LICENSE](LICENSE) 文件
 
-2. **课程详情**
-   - 找到".to-learn"按钮
-   - 点击进入视频播放页
+## 🙏 致谢
 
-3. **视频播放**
-   - 设置2倍速：`video.playbackRate = 2.0`
-   - 开始播放：`video.play()`
-   - 等待完成
-
----
-
-## 📞 支持
-
-遇到问题？
-
-1. 检查环境变量：`echo $CCB_USERNAME`
-2. 检查 agent-browser：`agent-browser --version`
-3. 查看日志：如果工具输出错误信息
-
----
-
-## 📋 更新日志
-
-- **v1.0.0** (2026-03-04): 初始版本，支持建行学习平台课程包2倍速自动观看
+- Agent Skills 社区
+- 建行学习平台
 
 ---
 
 **Skill Creator**: 何老师
-**License**: 自用
+**关键词**: 建行学习, CCB培训, 课程观看, 2倍速

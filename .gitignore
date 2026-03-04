@@ -1,0 +1,9 @@
+# 不提交的文件
+.*
+
+# 但是保留这些文件
+!.gitignore
+!SKILL.md
+!README.md
+!QUICKREF.md
+!install.sh
